@@ -1,45 +1,19 @@
-# Lab 2 Option 3: Adder
+1)
+Програма більше не копіює великих об'єктів
 
-## Team
+2)
+"Який зміст паралельно читати з диску n потоками? Все одно з диску паралельно читати не вийде. У завданні потрібно було просто зробити це в одному окремому потоці -- тобто щоб не чекати, поки всі файли прочитаються, а по одному додавати вже прочитані в пам’ять файли до черги. -1"
 
- - [Volodymyr Chernetskyi](https://github.com/chernetskyi)
+Програма і не читає паралельно з диску. Один окремий потік читає файли та додає у чергу. Виклик функції у мейні:
 
-## Usage
+v.emplace_back(push_files_to_the_queue, &filesPath, file_type, archive_type, std::ref(queue));
 
-```bash
-add [a] [b]
-```
+І під час того, як цей потік працює, інши вже беруть з черги файли та оброблюють їх. Виклик функції у мейні:
 
-If less than two numbers provided, zeroes are used instead. If more - an error occurs.
+for (int i = 0; i < counting_thrds; ++i) {
+    v.emplace_back(count_words_multi_threading, std::ref(queue), std::ref(merge_queue));
+}
 
-Help flags `-h`/`--help` support is available.
 
-## Prerequisites
-
- - **C++ compiler** - needs to support **C++17** standard
- - **CMake** 3.15+
- 
-Dependencies (such as development libraries) can be found in the [dependencies folder](./dependencies) in the form of the text files with package names for different package managers.
-
-## Installing
-
-1. Clone the project.
-    ```bash
-    git clone git@github.com:ucu-computer-systems/cpp-template.git
-    ```
-2. Install required packages.
-
-   On Ubuntu:
-   ```bash
-   [[ -r dependencies/apt.txt ]] && sed 's/#.*//' dependencies/apt.txt | xargs sudo apt-get install -y
-   ```
-   On MacOS:
-   ```bash
-   [[ -r dependencies/homebrew.txt ]] && sed 's/#.*//' dependencies/homebrew.txt | xargs brew install
-   ```
-   Use Conan on Windows.
-3. Build.
-    ```bash
-    cmake -Bbuild
-    cmake --build build
-    ```
+3)
+Скрипт тепер також перевіряє усі файли, а не перші 1000.

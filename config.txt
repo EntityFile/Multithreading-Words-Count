@@ -1,0 +1,6 @@
+../../../../Guttenberg_1/1/7/
+./res_a.txt
+./res_n.txt
+4
+3
+10000
