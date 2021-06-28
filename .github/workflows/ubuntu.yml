@@ -1,0 +1,22 @@
+name: Ubuntu
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        [[ -r dependencies/apt.txt ]] && sed 's/#.*//' dependencies/apt.txt | xargs sudo apt-get install -y
+
+    - name: Configure
+      run: cmake -DENABLE_CONAN=OFF -Bbuild
+
+    - name: Build
+      run: cmake --build build
