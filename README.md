@@ -17,7 +17,7 @@ Implementation notes:
 
 Notes:
 1) There is a Python script to verify the results of different runs for consistency (it uses res_n files)
-2) Program were tested on the machine with Intel i5-4460 + 8 Gb RAM
+2) Program was tested on the machine with Intel i5-4460 + 8 Gb RAM
 
 ----------------------------------------------------------------------------------------------------------------------------------
 
